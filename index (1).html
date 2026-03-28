@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NQH Healer Accelerator - Your Journey</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--cream:#FFFBF5;--warm:#FFF8EF;--ivory:#F9F3EA;
+--gold:#B8944F;--gold-soft:#D4B978;--gold-pale:#EDE2C8;--gold-glow:rgba(184,148,79,0.12);
+--sage:#7A9B7E;--sage-soft:#A8C5AB;--sage-pale:#E4F0E5;
+--terra:#C08B6E;--terra-soft:#D4A98D;--terra-pale:#F5E8E0;
+--ink:#2A2420;--ink-soft:#5A524A;--ink-faint:#8A827A;
+--border:rgba(184,148,79,0.18);
+--fd:'Cormorant Garamond',Georgia,serif;
+--fb:'Outfit',system-ui,sans-serif;
+--ease:cubic-bezier(0.25,0.46,0.45,0.94);
+}
+html{font-size:16px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink);min-height:100vh;overflow:hidden}
+.texture{position:fixed;inset:0;pointer-events:none;z-index:0;
+background:radial-gradient(ellipse at 15% 10%,rgba(184,148,79,0.06) 0%,transparent 50%),
+radial-gradient(ellipse at 85% 85%,rgba(122,155,126,0.05) 0%,transparent 50%),
+radial-gradient(ellipse at 50% 50%,rgba(192,139,110,0.03) 0%,transparent 60%)}
+.page{position:absolute;inset:0;display:flex;flex-direction:column;
+opacity:0;transform:translateY(16px);pointer-events:none;
+transition:opacity 0.55s var(--ease),transform 0.55s var(--ease);overflow-y:auto}
+.page.active{opacity:1;transform:translateY(0);pointer-events:all}
+.pi{max-width:960px;width:100%;margin:0 auto;padding:40px 48px 115px;flex:1;display:flex;flex-direction:column}
+.header{display:flex;justify-content:space-between;align-items:center;
+padding:16px 48px;position:fixed;top:0;left:0;right:0;z-index:100;
+background:rgba(255,251,245,0.92);backdrop-filter:blur(12px);
+border-bottom:1px solid rgba(184,148,79,0.08)}
+.hbrand{display:flex;align-items:center;gap:10px}
+.hlogo{width:32px;height:32px;border-radius:50%;
+background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+display:flex;align-items:center;justify-content:center;
+font-size:14px;color:white;box-shadow:0 2px 10px rgba(184,148,79,0.2)}
+.htxt{font-family:var(--fd);font-size:14px;color:var(--gold);font-weight:500;letter-spacing:1px}
+.hdots{display:flex;gap:6px;align-items:center}
+.hd{width:7px;height:7px;border-radius:50%;background:var(--gold-pale);
+transition:all 0.4s var(--ease);cursor:pointer}
+.hd.a{background:var(--gold);width:22px;border-radius:4px}
+.hd.v{background:var(--sage-soft)}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:14px 48px;background:linear-gradient(0deg,rgba(255,251,245,1) 60%,rgba(255,251,245,0))}
+.nb{display:flex;align-items:center;gap:6px;padding:11px 26px;
+border-radius:100px;cursor:pointer;font-size:13px;font-family:var(--fb);
+font-weight:500;letter-spacing:0.5px;transition:all 0.3s var(--ease);border:none}
+.nb.p{background:transparent;color:var(--ink-faint);border:1px solid rgba(184,148,79,0.2)}
+.nb.p:hover{border-color:var(--gold);color:var(--gold)}
+.nb.n{background:linear-gradient(135deg,var(--gold),var(--gold-soft));color:white;box-shadow:0 4px 20px rgba(184,148,79,0.25)}
+.nb.n:hover{box-shadow:0 6px 28px rgba(184,148,79,0.35);transform:translateY(-1px)}
+.nb:disabled{opacity:0.25;cursor:default;transform:none !important;box-shadow:none !important}
+.nlabel{font-size:12px;color:var(--ink-faint);letter-spacing:0.5px}
+.cpr{position:fixed;bottom:50px;left:0;right:0;text-align:center;font-size:9.5px;color:rgba(0,0,0,0.13);z-index:50;pointer-events:none}
+.overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
+background:rgba(255,251,245,0.96);backdrop-filter:blur(16px)}
+.ocard{text-align:center;max-width:440px;width:100%;padding:24px}
+.oorb{width:72px;height:72px;border-radius:50%;margin:0 auto 28px;
+background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 8px 40px rgba(184,148,79,0.2);font-size:28px;color:white;
+animation:glow 3s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 8px 40px rgba(184,148,79,0.2)}
+50%{box-shadow:0 8px 50px rgba(184,148,79,0.3),0 0 80px rgba(184,148,79,0.1)}}
+.oinput{width:100%;padding:16px 20px;border-radius:12px;border:1px solid var(--border);
+background:white;font-family:var(--fd);font-size:22px;text-align:center;
+color:var(--ink);outline:none;transition:border-color 0.3s}
+.oinput:focus{border-color:var(--gold)}
+.oinput::placeholder{color:var(--gold-pale);font-style:italic}
+.obtn{margin-top:20px;padding:14px 40px;border-radius:100px;border:none;
+background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+color:white;font-family:var(--fb);font-size:14px;font-weight:500;
+letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+box-shadow:0 4px 20px rgba(184,148,79,0.25);transition:all 0.3s}
+.obtn:hover{box-shadow:0 6px 28px rgba(184,148,79,0.35);transform:translateY(-1px)}
+.wc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:32px}
+.worb{width:80px;height:80px;border-radius:50%;margin-bottom:28px;
+background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 8px 40px rgba(184,148,79,0.2),0 0 80px rgba(184,148,79,0.08);
+font-size:32px;color:white;animation:glow 3s ease-in-out infinite}
+.wlbl{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:500}
+.wt{font-family:var(--fd);font-size:clamp(34px,5vw,54px);font-weight:400;color:var(--ink);line-height:1.15;margin-bottom:10px}
+.wn{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--terra));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ws{font-family:var(--fd);font-size:21px;font-weight:300;color:var(--ink-soft);font-style:italic;margin-bottom:36px}
+.wp{max-width:540px;padding:24px 30px;border-radius:16px;background:var(--warm);
+border:1px solid var(--border);font-size:15px;color:var(--ink-soft);line-height:1.75}
+.wp strong{color:var(--gold);font-weight:600}
+.sh{padding-top:76px;margin-bottom:36px}
+.sn{font-family:var(--fd);font-size:64px;font-weight:300;color:var(--gold-pale);line-height:1;margin-bottom:-6px}
+.st{font-family:var(--fd);font-size:clamp(26px,3.8vw,38px);font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:6px}
+.sd{font-size:14.5px;color:var(--ink-faint);line-height:1.6;max-width:580px}
+.tl{display:flex;flex-direction:column;position:relative;margin-top:8px}
+.tl::before{content:'';position:absolute;left:23px;top:24px;bottom:24px;width:2px;
+background:linear-gradient(180deg,var(--gold-pale),var(--sage-pale),var(--terra-pale),var(--gold-pale))}
+.tlp{display:flex;gap:22px;padding:18px 0;position:relative;animation:fsi 0.5s var(--ease) both}
+.tlp:nth-child(1){animation-delay:.1s}.tlp:nth-child(2){animation-delay:.2s}
+.tlp:nth-child(3){animation-delay:.3s}.tlp:nth-child(4){animation-delay:.4s}
+@keyframes fsi{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+.tlm{width:48px;height:48px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
+justify-content:center;font-family:var(--fd);font-size:20px;font-weight:600;color:white;
+z-index:1;box-shadow:0 4px 16px rgba(0,0,0,0.07)}
+.tlw{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:500;margin-bottom:3px}
+.tlt{font-family:var(--fd);font-size:23px;font-weight:500;color:var(--ink);margin-bottom:5px}
+.tld{font-size:13.5px;color:var(--ink-soft);line-height:1.6;margin-bottom:10px}
+.tlo{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:100px;font-size:12px;font-weight:500}
+.phero{border-radius:18px;padding:36px 32px;margin-bottom:28px;margin-top:76px;position:relative;overflow:hidden}
+.pnm{font-family:var(--fd);font-size:13px;font-weight:600;letter-spacing:4px;text-transform:uppercase;margin-bottom:6px}
+.ptl{font-family:var(--fd);font-size:clamp(26px,3.8vw,36px);font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:4px}
+.pth{font-family:var(--fd);font-size:17px;font-style:italic;color:var(--ink-soft);margin-bottom:16px}
+.pgr{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.pgr{grid-template-columns:1fr}}
+.pc{background:white;border-radius:13px;padding:20px 18px;border:1px solid rgba(0,0,0,0.04);
+box-shadow:0 2px 10px rgba(0,0,0,0.025);transition:transform 0.3s var(--ease),box-shadow 0.3s var(--ease)}
+.pc:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.05)}
+.pci{font-size:22px;margin-bottom:8px;display:block}
+.pct{font-family:var(--fd);font-size:17px;font-weight:500;color:var(--ink);margin-bottom:5px}
+.pcd{font-size:13px;color:var(--ink-soft);line-height:1.55}
+.pm{margin-top:24px;padding:18px 22px;border-radius:13px;background:white;border:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.pmk{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px}
+.pmt{font-family:var(--fd);font-size:16px;color:var(--ink);font-weight:500}
+.rg{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+@media(max-width:700px){.rg{grid-template-columns:1fr}}
+.rc{background:white;border-radius:13px;padding:20px 18px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 2px 10px rgba(0,0,0,0.025)}
+.rdy{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.rtt{font-family:var(--fd);font-size:17px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.rds{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.rtm{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:11.5px;font-weight:500;padding:3px 10px;border-radius:100px}
+.rtot{text-align:center;margin-top:24px;padding:14px 22px;border-radius:13px;background:var(--warm);border:1px solid var(--border)}
+.rtot span{font-family:var(--fd);font-size:16px;color:var(--ink-soft)}
+.rtot strong{color:var(--gold)}
+.scs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+@media(max-width:700px){.scs{grid-template-columns:1fr}}
+.sc{background:white;border-radius:15px;padding:26px 22px;text-align:center;border:1px solid rgba(0,0,0,0.04);box-shadow:0 2px 10px rgba(0,0,0,0.025)}
+.sav{width:52px;height:52px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;
+justify-content:center;font-family:var(--fd);font-size:20px;font-weight:600;color:white}
+.snm{font-family:var(--fd);font-size:19px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.srl{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.sdu{list-style:none;padding:0}
+.sdu li{font-size:12.5px;color:var(--ink-soft);line-height:1.5;padding:2px 0}
+.sft{text-align:center;margin-top:28px;font-family:var(--fd);font-size:19px;font-style:italic;color:var(--ink-soft)}
+.wl{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.w1{display:flex;gap:14px;padding:18px;background:white;border-radius:13px;
+border:1px solid rgba(0,0,0,0.04);box-shadow:0 2px 10px rgba(0,0,0,0.025);
+animation:fsi 0.5s var(--ease) both}
+.w1:nth-child(1){animation-delay:.08s}.w1:nth-child(2){animation-delay:.14s}
+.w1:nth-child(3){animation-delay:.2s}.w1:nth-child(4){animation-delay:.26s}
+.w1:nth-child(5){animation-delay:.32s}
+.w1n{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:var(--gold-glow);
+color:var(--gold);font-family:var(--fd);font-size:17px;font-weight:600;
+display:flex;align-items:center;justify-content:center;border:1px solid rgba(184,148,79,0.2)}
+.w1t{font-family:var(--fd);font-size:16px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.w1d{font-size:13px;color:var(--ink-soft);line-height:1.5}
+.cc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:32px}
+.cbg{width:84px;height:84px;border-radius:50%;margin-bottom:24px;
+background:linear-gradient(135deg,var(--sage),var(--sage-soft));
+display:flex;align-items:center;justify-content:center;
+box-shadow:0 8px 40px rgba(122,155,126,0.25);font-size:34px;color:white}
+.ctl{font-family:var(--fd);font-size:clamp(28px,4.2vw,44px);font-weight:400;color:var(--ink);line-height:1.2;margin-bottom:10px}
+.csb{font-size:15.5px;color:var(--ink-soft);line-height:1.7;max-width:500px;margin-bottom:32px}
+.cvs{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
+.cv{text-align:center;max-width:150px}
+.cvi{font-size:26px;margin-bottom:6px;display:block}
+.cvl{font-family:var(--fd);font-size:15px;font-weight:500;color:var(--ink)}
+.cvd{font-size:11.5px;color:var(--ink-faint);line-height:1.4;margin-top:3px}
+.cq{max-width:460px;padding:22px 28px;border-radius:15px;background:var(--warm);
+border:1px solid var(--border);font-family:var(--fd);font-size:17px;
+font-style:italic;color:var(--ink-soft);line-height:1.6}
+.cq strong{color:var(--gold);font-style:normal}
+</style>
+</head>
+<body>
+<div class="texture"></div>
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const {useState, useEffect, useCallback} = React;
+
+const STAR = String.fromCodePoint(0x2726);
+const TM = String.fromCodePoint(0x2122);
+const DASH = String.fromCodePoint(0x2014);
+const NDASH = String.fromCodePoint(0x2013);
+const RSQUO = String.fromCodePoint(0x2019);
+const CHECK = String.fromCodePoint(0x2713);
+const LARR = String.fromCodePoint(0x2190);
+const RARR = String.fromCodePoint(0x2192);
+const MIDDOT = String.fromCodePoint(0x00B7);
+const COPY = String.fromCodePoint(0x00A9);
+const LDQUO = String.fromCodePoint(0x201C);
+const RDQUO = String.fromCodePoint(0x201D);
+const CLOCK = String.fromCodePoint(0x1F550);
+
+const NQH = "NQH" + TM;
+
+const TOTAL = 10;
+const PAGE_NAMES = [
+  "Welcome", "Your Journey", "Phase 1", "Phase 2",
+  "Phase 3", "Phase 4", "Your Week", "Your Team",
+  "Week One", "Let" + RSQUO + "s Begin"
+];
+
+const TIMELINE_DATA = [
+  {n:"1", w:"Weeks 1"+NDASH+"4", t:"Certification Sprint",
+   d:"Master the "+NQH+" system. Learn all 16 core techniques. Earn your IPHM-accredited Level 1 Certification.",
+   o:"Certified "+NQH+" Practitioner", c:"var(--gold)", ob:"var(--gold-glow)"},
+  {n:"2", w:"Weeks 5"+NDASH+"8", t:"Identity & Offer",
+   d:"Craft your premium positioning. Build your 3-tier pricing model. Clear the money blocks holding you back.",
+   o:"Premium offer ready to sell", c:"var(--sage)", ob:"var(--sage-pale)"},
+  {n:"3", w:"Weeks 9"+NDASH+"12", t:"Client Pipeline",
+   d:"Build your content engine. Master discovery calls. Launch your visibility "+DASH+" organically or with Meta ads.",
+   o:"Clients starting to flow in", c:"var(--terra)", ob:"var(--terra-pale)"},
+  {n:"4", w:"Weeks 13"+NDASH+"16", t:"Scaling Systems",
+   d:"Install SOPs, KPIs, referral systems. Lock in your 90-day independent growth plan. Graduate.",
+   o:"Independent & profitable", c:"var(--gold)", ob:"var(--gold-glow)"}
+];
+
+const PHASES_DATA = [
+  {n:"Phase 1", title:"Certification Sprint", theme:"From scattered tools to structured mastery",
+   color:"var(--gold)", bg:"rgba(184,148,79,0.07)",
+   cards:[
+     {icon:String.fromCodePoint(0x1F9E0), title:"16 Core "+NQH+" Techniques", desc:"From FFT breathing to Reality Sculpting "+DASH+" a complete healing toolkit grounded in neuroscience and energy work."},
+     {icon:String.fromCodePoint(0x1F4D6), title:"Self-Paced on Exly", desc:"12 structured sessions available anytime. Go through them at your pace "+DASH+" one session at a time, depth over speed."},
+     {icon:String.fromCodePoint(0x1F3AF), title:"Weekly Live Practice", desc:"Every Thursday/Friday, 8"+NDASH+"9:30 PM on Zoom. Bring your questions, practice live, get real-time corrections."},
+     {icon:String.fromCodePoint(0x1F3C5), title:"IPHM Certification", desc:"Complete your MCQ and 5 case studies to earn internationally recognised "+NQH+" Level 1 Certification."}
+   ],
+   mile:"You will walk out of Phase 1 as a Certified "+NQH+" Practitioner with a complete session blueprint."},
+
+  {n:"Phase 2", title:"Identity & Offer", theme:"From undercharging hobbyist to premium practitioner",
+   color:"var(--sage)", bg:"rgba(122,155,126,0.07)",
+   cards:[
+     {icon:String.fromCodePoint(0x1F48E), title:"Premium Positioning", desc:"Craft the one sentence that explains who you are and why you"+RSQUO+"re different "+DASH+" and commands respect."},
+     {icon:String.fromCodePoint(0x1F4CA), title:"3-Tier Pricing Model", desc:"Build your Starter, Professional, and Premium packages with clear pricing that reflects your value."},
+     {icon:String.fromCodePoint(0x1F513), title:"Money Block Clearing", desc:"We use "+NQH+" techniques to clear the subconscious patterns keeping you stuck at low prices. Not just strategy "+DASH+" rewiring."},
+     {icon:String.fromCodePoint(0x2728), title:"Signature Program Design", desc:"Design and name your flagship healing program "+DASH+" the one offer that becomes your identity."}
+   ],
+   mile:"You will walk out of Phase 2 with a clear professional identity and a premium offer you"+RSQUO+"re proud to sell."},
+
+  {n:"Phase 3", title:"Client Pipeline", theme:"From inconsistent hustle to predictable client flow",
+   color:"var(--terra)", bg:"rgba(192,139,110,0.07)",
+   cards:[
+     {icon:String.fromCodePoint(0x1F4F1), title:"Content Authority Engine", desc:"Build your 30-day content calendar. Learn hooks, scripts, and positioning that makes you the go-to expert."},
+     {icon:String.fromCodePoint(0x1F91D), title:"Discovery Call Mastery", desc:"Convert leads into premium clients through consultative, non-salesy conversations. Scripts + live roleplay."},
+     {icon:String.fromCodePoint(0x1F4E3), title:"Meta Ads & Funnels", desc:"Amaey personally walks you through ad setup, funnel building, and automation "+DASH+" all tech handled for you."},
+     {icon:String.fromCodePoint(0x1F4AC), title:"Warm Outreach System", desc:"DM scripts, WhatsApp templates, referral asks "+DASH+" a complete system for reaching the right people."}
+   ],
+   mile:"You will walk out of Phase 3 with a working visibility system and your first premium clients."},
+
+  {n:"Phase 4", title:"Scaling Systems", theme:"From overwhelmed solo practitioner to organised professional",
+   color:"var(--gold)", bg:"rgba(184,148,79,0.07)",
+   cards:[
+     {icon:String.fromCodePoint(0x1F4CB), title:"SOPs & Practice Management", desc:"Standard procedures for client sessions, intake, follow-ups "+DASH+" your practice runs like a real business."},
+     {icon:String.fromCodePoint(0x1F4C8), title:"KPI Dashboard", desc:"Track leads, conversions, revenue, and client outcomes. Know your numbers, grow your numbers."},
+     {icon:String.fromCodePoint(0x1F504), title:"Referral Engine", desc:"Testimonial collection, referral scripts, and cross-promotion strategies for sustainable organic growth."},
+     {icon:String.fromCodePoint(0x1F5FA, 0xFE0F), title:"90-Day Growth Plan", desc:"Your personalised roadmap for the 3 months after graduation "+DASH+" independent, confident, and growing."}
+   ],
+   mile:"You will graduate with systems in place and a clear plan to grow independently."}
+];
+
+const RHYTHM_DATA = [
+  {day:"Anytime", t:"Self-Paced Learning", d:"Go through your Exly modules at your own pace. One session per week is the ideal rhythm.", time:"On Exly", c:"var(--gold)"},
+  {day:"Thursday / Friday", t:"Live Group Session", d:"8"+NDASH+"9:30 PM on Zoom. Live practice, Q&A, technique corrections, and mentorship with Amaey & Pankaj.", time:"8:00"+NDASH+"9:30 PM IST", c:"var(--sage)"},
+  {day:"Monday"+NDASH+"Saturday", t:"WhatsApp Support", d:"Ask questions, share wins, get unstuck. Rakhi, Amaey, and Pankaj are all accessible.", time:"Ongoing", c:"var(--terra)"},
+  {day:"Daily", t:"Your Practice", d:"Daily MCR ritual + technique practice. 20"+NDASH+"30 minutes. This is where real mastery builds.", time:"20"+NDASH+"30 min", c:"var(--gold)"},
+  {day:"Ongoing", t:"Discord Community", d:"Connect with fellow practitioners. Share case studies, celebrate wins, find accountability partners.", time:"Async", c:"var(--sage)"},
+  {day:"Weekly", t:"Mission & Accountability", d:"Every live session ends with a specific weekly mission "+DASH+" Practice, Business, or Healing category.", time:"Assigned live", c:"var(--terra)"}
+];
+
+const WEEK1_DATA = [
+  {t:"Start Session 1 on Exly", d:NQH+" Foundations + Flow Frequency Tuning. Watch the full session. Begin practising the FFT breathing technique daily "+DASH+" 4 counts in, 4 hold, 8 out."},
+  {t:"Join the Discord Community", d:"Use the invite link Rakhi sent. Introduce yourself "+DASH+" your name, your background, and one thing you want to achieve in 120 days."},
+  {t:"Attend Your First Live Session", d:"This Thursday/Friday at 8 PM on Zoom. Bring your questions from what you"+RSQUO+"ve watched on Exly. We"+RSQUO+"ll practice together."},
+  {t:"Begin the Master Coherence Ritual", d:"The MCR is a 7-step daily practice that forms the backbone of "+NQH+". Start with what you can "+DASH+" we"+RSQUO+"ll build it properly in the live session."},
+  {t:"Reach Out If You Need Anything", d:"Rakhi is your operations contact. Amaey and Pankaj are on WhatsApp Mon"+NDASH+"Sat. Don"+RSQUO+"t wait "+DASH+" that"+RSQUO+"s what we"+RSQUO+"re here for."}
+];
+
+const COMMIT_VALUES = [
+  {i:String.fromCodePoint(0x1F52C), l:"Show Up", d:"Attend, engage, bring questions"},
+  {i:String.fromCodePoint(0x1F9D8), l:"Practice Daily", d:"Techniques build through repetition"},
+  {i:String.fromCodePoint(0x1F48E), l:"Trust the Process", d:"Each phase builds on the last"},
+  {i:String.fromCodePoint(0x1F91D), l:"Lean on Us", d:"You"+RSQUO+"re never alone in this"}
+];
+
+function App() {
+  const [name, setName] = useState("");
+  const [started, setStarted] = useState(false);
+  const [pg, setPg] = useState(0);
+  const [vis, setVis] = useState(new Set([0]));
+
+  const go = useCallback((p) => {
+    if (p >= 0 && p < TOTAL) {
+      setPg(p);
+      setVis(v => new Set([...v, p]));
+    }
+  }, []);
+
+  useEffect(() => {
+    const h = (e) => {
+      if (!started) return;
+      if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); go(pg + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(pg - 1); }
+    };
+    window.addEventListener("keydown", h);
+    return () => window.removeEventListener("keydown", h);
+  }, [started, pg, go]);
+
+  if (!started) {
+    return (
+      <div className="overlay">
+        <div className="ocard">
+          <div className="oorb">{STAR}</div>
+          <p style={{fontFamily:"var(--fb)",fontSize:11,letterSpacing:5,textTransform:"uppercase",color:"var(--gold)",marginBottom:18,fontWeight:500}}>
+            {NQH} Healer Accelerator
+          </p>
+          <p style={{fontFamily:"var(--fd)",fontSize:26,color:"var(--ink)",marginBottom:22,fontWeight:400}}>
+            Welcome to your journey
+          </p>
+          <input className="oinput" value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder={"Enter practitioner" + RSQUO + "s name"}
+            onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStarted(true); }} />
+          <br />
+          <button className="obtn" onClick={() => { if (name.trim()) setStarted(true); }}>Begin</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* HEADER */}
+      <div className="header">
+        <div className="hbrand">
+          <div className="hlogo">{STAR}</div>
+          <span className="htxt">Miindtraa {MIDDOT} {NQH}</span>
+        </div>
+        <div className="hdots">
+          {Array.from({length: TOTAL}).map((_, i) => (
+            <div key={i}
+              className={"hd" + (i === pg ? " a" : "") + (vis.has(i) && i !== pg ? " v" : "")}
+              onClick={() => go(i)}
+              title={PAGE_NAMES[i]} />
+          ))}
+        </div>
+      </div>
+
+      {/* PAGE 0: WELCOME */}
+      <div className={"page" + (pg === 0 ? " active" : "")}>
+        <div className="pi">
+          <div className="wc">
+            <div className="worb">{STAR}</div>
+            <p className="wlbl">{NQH} Healer Accelerator {MIDDOT} 120 Days</p>
+            <h1 className="wt">Welcome, <span className="wn">{name}</span></h1>
+            <p className="ws">Your transformation starts today.</p>
+            <div className="wp">
+              Over the next <strong>120 days</strong>, you will move from where you are today to a place where you have a <strong>structured healing system</strong>, a <strong>premium professional identity</strong>, and a <strong>working client pipeline</strong> {DASH} supported every step of the way by Dr. Amaey, Pankaj, and the entire Miindtraa team.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 1: JOURNEY */}
+      <div className={"page" + (pg === 1 ? " active" : "")}>
+        <div className="pi">
+          <div className="sh">
+            <div className="sn">01</div>
+            <h2 className="st">Your 120-Day Journey</h2>
+            <p className="sd">Four phases. Each one builds on the last. Each one takes you closer to the practitioner you{RSQUO}re meant to become.</p>
+          </div>
+          <div className="tl">
+            {TIMELINE_DATA.map((p, i) => (
+              <div className="tlp" key={i}>
+                <div className="tlm" style={{background:"linear-gradient(135deg," + p.c + "," + p.c + "cc)"}}>{p.n}</div>
+                <div style={{flex:1,paddingTop:3}}>
+                  <div className="tlw" style={{color:p.c}}>{p.w}</div>
+                  <div className="tlt">{p.t}</div>
+                  <div className="tld">{p.d}</div>
+                  <div className="tlo" style={{background:p.ob,color:p.c}}>{CHECK} {p.o}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* PAGES 2-5: PHASE DETAILS */}
+      {PHASES_DATA.map((ph, idx) => (
+        <div key={idx} className={"page" + (pg === idx + 2 ? " active" : "")}>
+          <div className="pi">
+            <div className="phero" style={{background:ph.bg}}>
+              <div className="pnm" style={{color:ph.color}}>{ph.n}</div>
+              <h2 className="ptl">{ph.title}</h2>
+              <p className="pth">{LDQUO}{ph.theme}{RDQUO}</p>
+            </div>
+            <div className="pgr">
+              {ph.cards.map((c, ci) => (
+                <div className="pc" key={ci}>
+                  <span className="pci">{c.icon}</span>
+                  <div className="pct">{c.title}</div>
+                  <div className="pcd">{c.desc}</div>
+                </div>
+              ))}
+            </div>
+            <div className="pm">
+              <div className="pmk" style={{background:ph.bg,color:ph.color}}>{CHECK}</div>
+              <div className="pmt">{ph.mile}</div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      {/* PAGE 6: WEEKLY RHYTHM */}
+      <div className={"page" + (pg === 6 ? " active" : "")}>
+        <div className="pi">
+          <div className="sh">
+            <div className="sn">06</div>
+            <h2 className="st">Your Weekly Rhythm</h2>
+            <p className="sd">Structured enough to keep you on track. Flexible enough to fit your life.</p>
+          </div>
+          <div className="rg">
+            {RHYTHM_DATA.map((r, i) => (
+              <div className="rc" key={i}>
+                <div className="rdy" style={{color:r.c}}>{r.day}</div>
+                <div className="rtt">{r.t}</div>
+                <div className="rds">{r.d}</div>
+                <div className="rtm" style={{color:r.c,background:"var(--gold-glow)"}}>{CLOCK} {r.time}</div>
+              </div>
+            ))}
+          </div>
+          <div className="rtot">
+            <span>Total weekly commitment: <strong>8{NDASH}10 hours</strong> {MIDDOT} That{RSQUO}s all it takes with the right system.</span>
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 7: SUPPORT */}
+      <div className={"page" + (pg === 7 ? " active" : "")}>
+        <div className="pi">
+          <div className="sh">
+            <div className="sn">07</div>
+            <h2 className="st">Your Support System</h2>
+            <p className="sd">You{RSQUO}re not doing this alone. Here{RSQUO}s who{RSQUO}s walking this journey with you.</p>
+          </div>
+          <div className="scs">
+            <div className="sc">
+              <div className="sav" style={{background:"linear-gradient(135deg,var(--gold),var(--gold-soft))"}}>A</div>
+              <div className="snm">Dr. Amaey</div>
+              <div className="srl" style={{color:"var(--gold)"}}>Co-Founder {MIDDOT} Back-End</div>
+              <ul className="sdu">
+                <li>Science & technique grounding</li>
+                <li>Meta ads & funnel setup</li>
+                <li>Tech infrastructure</li>
+                <li>Pricing psychology</li>
+                <li>{NQH} conceptual clarity</li>
+              </ul>
+            </div>
+            <div className="sc">
+              <div className="sav" style={{background:"linear-gradient(135deg,var(--sage),var(--sage-soft))"}}>P</div>
+              <div className="snm">Pankaj</div>
+              <div className="srl" style={{color:"var(--sage)"}}>Co-Founder {MIDDOT} Front-End</div>
+              <ul className="sdu">
+                <li>Content & scripting</li>
+                <li>Positioning & identity</li>
+                <li>Discovery call coaching</li>
+                <li>Emotional & mindset work</li>
+                <li>Practice & facilitation</li>
+              </ul>
+            </div>
+            <div className="sc">
+              <div className="sav" style={{background:"linear-gradient(135deg,var(--terra),var(--terra-soft))"}}>R</div>
+              <div className="snm">Rakhi</div>
+              <div className="srl" style={{color:"var(--terra)"}}>Operations Head</div>
+              <ul className="sdu">
+                <li>Your go-to for access & logistics</li>
+                <li>Weekly accountability check-ins</li>
+                <li>Platform & tech support</li>
+                <li>Scheduling & coordination</li>
+                <li>Progress tracking</li>
+              </ul>
+            </div>
+          </div>
+          <div className="sft">Plus a private community of fellow practitioners on the same journey as you.</div>
+        </div>
+      </div>
+
+      {/* PAGE 8: WEEK ONE */}
+      <div className={"page" + (pg === 8 ? " active" : "")}>
+        <div className="pi">
+          <div className="sh">
+            <div className="sn">08</div>
+            <h2 className="st">Your First Week</h2>
+            <p className="sd">Here{RSQUO}s exactly what to do starting today. No guessing. Just follow these steps.</p>
+          </div>
+          <div className="wl">
+            {WEEK1_DATA.map((s, i) => (
+              <div className="w1" key={i} style={{animationDelay: (0.08 + i * 0.06) + "s"}}>
+                <div className="w1n">{i + 1}</div>
+                <div style={{flex:1,paddingTop:2}}>
+                  <div className="w1t">{s.t}</div>
+                  <div className="w1d">{s.d}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* PAGE 9: COMMITMENT */}
+      <div className={"page" + (pg === 9 ? " active" : "")}>
+        <div className="pi">
+          <div className="cc">
+            <div className="cbg">{STAR}</div>
+            <h2 className="ctl">Let{RSQUO}s Build Something Real</h2>
+            <p className="csb">
+              {name}, you{RSQUO}re not just joining a program. You{RSQUO}re stepping into a completely different version of your practice {DASH} and yourself.
+            </p>
+            <div className="cvs">
+              {COMMIT_VALUES.map((v, i) => (
+                <div className="cv" key={i}>
+                  <span className="cvi">{v.i}</span>
+                  <div className="cvl">{v.l}</div>
+                  <div className="cvd">{v.d}</div>
+                </div>
+              ))}
+            </div>
+            <div className="cq">
+              {LDQUO}120 days from now, you{RSQUO}re going to look back at this conversation and wonder why you didn{RSQUO}t do this sooner.{RDQUO}
+              <br /><br />
+              <strong>Welcome to the {NQH} Healer Accelerator.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* NAVIGATION */}
+      <div className="nav">
+        <button className="nb p" disabled={pg === 0} onClick={() => go(pg - 1)}>
+          {LARR} Back
+        </button>
+        <span className="nlabel">{PAGE_NAMES[pg]}</span>
+        <button className="nb n" disabled={pg === TOTAL - 1} onClick={() => go(pg + 1)}>
+          Continue {RARR}
+        </button>
+      </div>
+
+      <div className="cpr">
+        {COPY} 2026 Miindtraa School of Healing & Training {MIDDOT} {NQH} is a trademark of Dr. Amaey A. Parekh & Pankaj S. Nikam {MIDDOT} All rights reserved
+      </div>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
